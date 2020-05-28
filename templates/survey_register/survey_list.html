@@ -1,0 +1,45 @@
+{% extends "survey_register/base.html" %}
+
+{% block content %}
+
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Country code</td>
+            <td>Phone</td>
+            <td>Nation slug</td>
+            <td>Organization</td>
+            <td>Position</td>
+            <td>
+                <a href="{% url 'survey_insert' %}" class="btn btn-outline-success">+</a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for delve in survey_list %}
+            <tr>
+                <td>{{delve.name}}</td>
+                <td>{{delve.email}}</td>
+                <td>{{delve.country_code}}</td>
+                <td>{{delve.phone}}</td>
+                <td>{{delve.nation_slug}}</td>
+                <td>{{delve.organization}}</td>
+                <td>{{delve.position}}</td>
+                <td>
+                    <a href="{% url 'survey_update' delve.id %}" class="btn text-secondary px-0">Edit</a>
+                    
+                    <form action="{% url 'survey_delete' delve.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}
